@@ -1242,8 +1242,9 @@ class SupportUtility(commands.Cog, name=__plugin_name__):
             except RuntimeError:
                 pass
 
-@commands.command()
-    #@commands.check(check_cord)
+ @cm_lb.command(name="lb")
+    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
+    async def cm_config_button_clear(self, ctx: commands.Context):
     async def lb(self, ctx, reset: str = None):
         if reset == None:
             msg = ""
