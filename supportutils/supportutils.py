@@ -1242,29 +1242,16 @@ class SupportUtility(commands.Cog, name=__plugin_name__):
             except RuntimeError:
                 pass
 
- @cm_lb.command(name="lb")
+ @cm_host.command(name=addhost")
     @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
-    async def cm_config_button_clear(self, ctx: commands.Context):
-    async def lb(self, ctx, reset: str = None):
-        if reset == None:
-            msg = ""
-            y = 0
-            my_dict = sorted(self.client.closed.items(), key=lambda item: item[1], reverse=True)
-            my_dict = {k: v for k, v in my_dict}
-            for x in my_dict:
-                member = self.client.get_user(x)
-                logs = my_dict[x]
-                y += logs
-                msg += f'**{member.name}**: {logs}\n'
-            msg += f'\n\nTotal Count: **{y}**'
-            embed = discord.Embed(description=msg)
-            embed.set_author(name='Modmail Leaderboard' )#icon_url=ctx.guild.icon.url)
-            embed.set_footer(text='Make sure to get 10 ModMails per week!')
-            await ctx.send(embed=embed)
-        elif reset.lower() in ('reset'):
-            self.client.closed.clear()
-            embed1 = discord.Embed(description='ModMail Leaderboard has been reset')
-            await ctx.send(embed=embed1)
+    async def addhost(self, ctx, user: discord.User):
+        if user.id in self.client.host_logs:
+            old = self.client.host_logs[user.id]
+            self.client.host_logs[user.id] = old + 1
+            await ctx.send(f'Successfully added **1** host to {user.mention}.')
+        else:
+            self.client.host_logs[user.id] = 1
+            await ctx.send(f'Successfully added **1** host to {user.mention}.')
 
 
 async def setup(bot: ModmailBot) -> None:
