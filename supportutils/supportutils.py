@@ -1242,17 +1242,6 @@ class SupportUtility(commands.Cog, name=__plugin_name__):
             except RuntimeError:
                 pass
 
- @cm_host.command(name=addhost")
-    @checks.has_permissions(PermissionLevel.ADMINISTRATOR)
-    async def addhost(self, ctx, user: discord.User):
-        if user.id in self.client.host_logs:
-            old = self.client.host_logs[user.id]
-            self.client.host_logs[user.id] = old + 1
-            await ctx.send(f'Successfully added **1** host to {user.mention}.')
-        else:
-            self.client.host_logs[user.id] = 1
-            await ctx.send(f'Successfully added **1** host to {user.mention}.')
-
 
 async def setup(bot: ModmailBot) -> None:
     await bot.add_cog(SupportUtility(bot))
